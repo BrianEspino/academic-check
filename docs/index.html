@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academic Check | Descargar APK</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: white;
+      background: #050009;
+    }
+
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      background:
+        radial-gradient(circle at 20% 20%, #ff00cc, transparent 25%),
+        radial-gradient(circle at 80% 30%, #00f7ff, transparent 25%),
+        radial-gradient(circle at 50% 80%, #aaff00, transparent 25%),
+        linear-gradient(135deg, #050009, #170033, #001c2b);
+      filter: saturate(180%);
+      animation: backgroundMove 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes backgroundMove {
+      0% {
+        transform: scale(1);
+        filter: hue-rotate(0deg) saturate(200%);
+      }
+      100% {
+        transform: scale(1.2);
+        filter: hue-rotate(360deg) saturate(300%);
+      }
+    }
+
+    .grid {
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transform: perspective(700px) rotateX(60deg) scale(1.8);
+      transform-origin: center bottom;
+      animation: gridMove 2s linear infinite;
+    }
+
+    @keyframes gridMove {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 60px 60px;
+      }
+    }
+
+    .particles span {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: white;
+      box-shadow:
+        0 0 20px white,
+        0 0 40px #00ffff,
+        0 0 80px #ff00ff;
+      animation: floatParticle linear infinite;
+      opacity: .8;
+      z-index: -3;
+    }
+
+    .particles span:nth-child(1) { left: 5%; animation-duration: 12s; animation-delay: 0s; }
+    .particles span:nth-child(2) { left: 15%; animation-duration: 18s; animation-delay: 2s; }
+    .particles span:nth-child(3) { left: 25%; animation-duration: 10s; animation-delay: 4s; }
+    .particles span:nth-child(4) { left: 35%; animation-duration: 15s; animation-delay: 1s; }
+    .particles span:nth-child(5) { left: 45%; animation-duration: 13s; animation-delay: 3s; }
+    .particles span:nth-child(6) { left: 55%; animation-duration: 20s; animation-delay: 5s; }
+    .particles span:nth-child(7) { left: 65%; animation-duration: 11s; animation-delay: 2s; }
+    .particles span:nth-child(8) { left: 75%; animation-duration: 17s; animation-delay: 0s; }
+    .particles span:nth-child(9) { left: 85%; animation-duration: 14s; animation-delay: 6s; }
+    .particles span:nth-child(10) { left: 95%; animation-duration: 19s; animation-delay: 1s; }
+
+    @keyframes floatParticle {
+      0% {
+        top: 110%;
+        transform: scale(.4) rotate(0deg);
+      }
+      100% {
+        top: -10%;
+        transform: scale(1.8) rotate(720deg);
+      }
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(20px);
+      opacity: .75;
+      mix-blend-mode: screen;
+      z-index: -2;
+    }
+
+    .orb.one {
+      width: 330px;
+      height: 330px;
+      background: #ff00e6;
+      top: 10%;
+      left: 8%;
+      animation: orbOne 8s ease-in-out infinite alternate;
+    }
+
+    .orb.two {
+      width: 420px;
+      height: 420px;
+      background: #00eaff;
+      right: 5%;
+      bottom: 8%;
+      animation: orbTwo 9s ease-in-out infinite alternate;
+    }
+
+    .orb.three {
+      width: 260px;
+      height: 260px;
+      background: #ccff00;
+      left: 45%;
+      bottom: 15%;
+      animation: orbThree 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbOne {
+      to {
+        transform: translate(120px, 80px) scale(1.3);
+      }
+    }
+
+    @keyframes orbTwo {
+      to {
+        transform: translate(-120px, -120px) scale(.9);
+      }
+    }
+
+    @keyframes orbThree {
+      to {
+        transform: translate(80px, -160px) scale(1.5);
+      }
+    }
+
+    header {
+      width: 100%;
+      padding: 28px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 10px #00ffff,
+        0 0 30px #ff00ff;
+    }
+
+    .badge {
+      padding: 10px 18px;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 25px rgba(255,255,255,.15);
+      font-weight: 700;
+    }
+
+    main {
+      min-height: calc(100vh - 90px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 8%;
+      position: relative;
+    }
+
+    .hero {
+      width: min(1100px, 100%);
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .content {
+      animation: showUp 1.2s ease forwards;
+    }
+
+    @keyframes showUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .title {
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      line-height: .9;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: -5px;
+      background: linear-gradient(
+        90deg,
+        #ffffff,
+        #00ffff,
+        #ff00ff,
+        #ccff00,
+        #ffffff
+      );
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textGradient 4s linear infinite;
+      filter: drop-shadow(0 0 25px rgba(255,255,255,.5));
+    }
+
+    @keyframes textGradient {
+      0% {
+        background-position: 0%;
+      }
+      100% {
+        background-position: 300%;
+      }
+    }
+
+    .subtitle {
+      margin-top: 24px;
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.88);
+      max-width: 650px;
+      text-shadow: 0 0 10px rgba(0,0,0,.8);
+    }
+
+    .highlight {
+      color: #00ffff;
+      font-weight: 800;
+      text-shadow: 0 0 12px #00ffff;
+    }
+
+    .actions {
+      margin-top: 38px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .download-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 34px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #050009;
+      font-size: 1.1rem;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #00ffff, #ff00ff, #ccff00, #00ffff);
+      background-size: 300%;
+      box-shadow:
+        0 0 20px #00ffff,
+        0 0 50px #ff00ff,
+        inset 0 0 18px rgba(255,255,255,.6);
+      animation: buttonFlow 3s linear infinite, buttonPulse 1.5s ease-in-out infinite;
+      overflow: hidden;
+      transition: .3s;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.08) rotate(-1deg);
+      box-shadow:
+        0 0 30px #00ffff,
+        0 0 80px #ff00ff,
+        0 0 120px #ccff00;
+    }
+
+    .download-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -90%;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.8), transparent);
+      transform: skewX(-25deg);
+      animation: shine 2.2s infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        left: -90%;
+      }
+      100% {
+        left: 130%;
+      }
+    }
+
+    @keyframes buttonFlow {
+      to {
+        background-position: 300%;
+      }
+    }
+
+    @keyframes buttonPulse {
+      0%, 100% {
+        filter: brightness(1);
+      }
+      50% {
+        filter: brightness(1.35);
+      }
+    }
+
+    .ghost-btn {
+      padding: 18px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: white;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 0 25px rgba(255,255,255,.12);
+      transition: .3s;
+    }
+
+    .ghost-btn:hover {
+      background: rgba(255,255,255,.22);
+      transform: translateY(-4px);
+      box-shadow: 0 0 35px rgba(255,255,255,.25);
+    }
+
+    .phone-card {
+      position: relative;
+      height: 620px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+      animation: floatPhone 4s ease-in-out infinite;
+    }
+
+    @keyframes floatPhone {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-25px);
+      }
+    }
+
+    .phone {
+      width: 310px;
+      height: 600px;
+      border-radius: 42px;
+      padding: 16px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.35), rgba(255,255,255,.05)),
+        rgba(0,0,0,.45);
+      border: 2px solid rgba(255,255,255,.45);
+      box-shadow:
+        0 0 40px rgba(0,255,255,.7),
+        0 0 90px rgba(255,0,255,.45),
+        inset 0 0 30px rgba(255,255,255,.12);
+      transform: rotateY(-12deg) rotateX(8deg);
+      backdrop-filter: blur(30px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(
+        from 0deg,
+        transparent,
+        #00ffff,
+        #ff00ff,
+        #ccff00,
+        transparent
+      );
+      animation: rotateRing 5s linear infinite;
+      opacity: .4;
+    }
+
+    @keyframes rotateRing {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .screen {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      border-radius: 32px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top, rgba(0,255,255,.4), transparent 35%),
+        linear-gradient(180deg, #13001f, #050009);
+      border: 1px solid rgba(255,255,255,.25);
+    }
+
+    .notch {
+      width: 95px;
+      height: 26px;
+      background: #050009;
+      border-radius: 0 0 18px 18px;
+      margin: 0 auto;
+      box-shadow: 0 0 15px rgba(0,0,0,.8);
+    }
+
+    .app-preview {
+      padding: 38px 24px;
+      text-align: center;
+    }
+
+    .app-icon {
+      width: 115px;
+      height: 115px;
+      margin: 0 auto 24px;
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, #00ffff, #ff00ff, #ccff00);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      box-shadow:
+        0 0 30px #00ffff,
+        0 0 60px #ff00ff;
+      animation: iconMorph 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes iconMorph {
+      0% {
+        border-radius: 32px;
+        transform: rotate(-8deg) scale(1);
+      }
+      100% {
+        border-radius: 50%;
+        transform: rotate(8deg) scale(1.1);
+      }
+    }
+
+    .app-preview h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px #00ffff;
+    }
+
+    .app-preview p {
+      color: rgba(255,255,255,.8);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .mini-card {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      text-align: left;
+      box-shadow: inset 0 0 20px rgba(255,255,255,.05);
+      animation: miniGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes miniGlow {
+      from {
+        box-shadow: inset 0 0 20px rgba(255,255,255,.05);
+      }
+      to {
+        box-shadow:
+          inset 0 0 25px rgba(255,255,255,.15),
+          0 0 25px rgba(0,255,255,.35);
+      }
+    }
+
+    .mini-card strong {
+      color: #ccff00;
+    }
+
+    .visualizer {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 34px;
+    }
+
+    .bar {
+      width: 10px;
+      height: 45px;
+      border-radius: 10px;
+      background: linear-gradient(#00ffff, #ff00ff);
+      animation: sound 1s ease-in-out infinite;
+      box-shadow: 0 0 18px #00ffff;
+    }
+
+    .bar:nth-child(2) { animation-delay: .1s; }
+    .bar:nth-child(3) { animation-delay: .2s; }
+    .bar:nth-child(4) { animation-delay: .3s; }
+    .bar:nth-child(5) { animation-delay: .4s; }
+    .bar:nth-child(6) { animation-delay: .5s; }
+    .bar:nth-child(7) { animation-delay: .6s; }
+
+    @keyframes sound {
+      0%, 100% {
+        height: 20px;
+      }
+      50% {
+        height: 75px;
+      }
+    }
+
+    .rings {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .rings span {
+      position: absolute;
+      border: 2px solid rgba(255,255,255,.25);
+      border-radius: 50%;
+      animation: expandRing 4s linear infinite;
+      box-shadow: 0 0 25px rgba(0,255,255,.5);
+    }
+
+    .rings span:nth-child(1) {
+      width: 120px;
+      height: 120px;
+      top: 20%;
+      left: 15%;
+    }
+
+    .rings span:nth-child(2) {
+      width: 180px;
+      height: 180px;
+      bottom: 15%;
+      right: 10%;
+      animation-delay: 1s;
+    }
+
+    .rings span:nth-child(3) {
+      width: 90px;
+      height: 90px;
+      top: 55%;
+      left: 45%;
+      animation-delay: 2s;
+    }
+
+    @keyframes expandRing {
+      0% {
+        transform: scale(.7);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(2.8);
+        opacity: 0;
+      }
+    }
+
+    footer {
+      padding: 28px 8%;
+      text-align: center;
+      color: rgba(255,255,255,.75);
+      position: relative;
+      z-index: 5;
+    }
+
+    .cursor-light {
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,.22), transparent 60%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      mix-blend-mode: screen;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .subtitle {
+        margin-inline: auto;
+      }
+
+      .actions {
+        justify-content: center;
+      }
+
+      .phone-card {
+        height: 560px;
+      }
+
+      .phone {
+        width: 280px;
+        height: 540px;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .title {
+        letter-spacing: -2px;
+      }
+
+      .download-btn,
+      .ghost-btn {
+        width: 100%;
+      }
+
+      .actions {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background"></div>
+  <div class="grid"></div>
+  <div class="cursor-light" id="cursorLight"></div>
+
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+
+  <div class="particles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="rings">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <header>
+    <div class="logo">Academic Check</div>
+    <div class="badge">APK Android disponible</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="content">
+        <h1 class="title">Descarga<br>la App</h1>
+
+        <p class="subtitle">
+          Bienvenido a <span class="highlight">Academic Check</span>, una experiencia visual
+          futurista, psicodélica y brutal para descargar tu aplicación Android directamente
+          desde GitHub Releases.
+        </p>
+
+        <div class="actions">
+          <a
+            class="download-btn"
+            href="https://github.com/BrianEspino/academic-check/releases/latest/download/app-release.apk"
+            download
+          >
+            🚀 Descargar APK
+          </a>
+
+          <a
+            class="ghost-btn"
+            href="https://github.com/BrianEspino/academic-check"
+            target="_blank"
+          >
+            Ver repositorio
+          </a>
+        </div>
+      </div>
+
+      <div class="phone-card">
+        <div class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+
+            <div class="app-preview">
+              <div class="app-icon">📱</div>
+
+              <h2>Academic Check</h2>
+
+              <p>
+                Instala la versión más reciente del APK en tu dispositivo Android.
+              </p>
+
+              <div class="mini-card">
+                <strong>Estado:</strong> listo para descargar
+              </div>
+
+              <div class="mini-card">
+                <strong>Fuente:</strong> GitHub Releases
+              </div>
+
+              <div class="mini-card">
+                <strong>Formato:</strong> app-release.apk
+              </div>
+
+              <div class="visualizer">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Academic Check | Desarrollado por Brian Espino
+  </footer>
+
+  <script>
+    const cursorLight = document.getElementById("cursorLight");
+
+    document.addEventListener("mousemove", (event) => {
+      cursorLight.style.left = event.clientX + "px";
+      cursorLight.style.top = event.clientY + "px";
+    });
+
+    const button = document.querySelector(".download-btn");
+
+    button.addEventListener("click", () => {
+      button.innerHTML = "⚡ Descargando APK...";
+      setTimeout(() => {
+        button.innerHTML = "🚀 Descargar APK";
+      }, 2500);
+    });
+
+    document.addEventListener("click", (event) => {
+      const burst = document.createElement("div");
+
+      burst.style.position = "fixed";
+      burst.style.left = event.clientX + "px";
+      burst.style.top = event.clientY + "px";
+      burst.style.width = "20px";
+      burst.style.height = "20px";
+      burst.style.borderRadius = "50%";
+      burst.style.pointerEvents = "none";
+      burst.style.transform = "translate(-50%, -50%)";
+      burst.style.background = "radial-gradient(circle, #fff, #00ffff, #ff00ff, transparent)";
+      burst.style.boxShadow = "0 0 30px #00ffff, 0 0 60px #ff00ff";
+      burst.style.animation = "clickExplosion .7s ease-out forwards";
+      burst.style.zIndex = "9999";
+
+      document.body.appendChild(burst);
+
+      setTimeout(() => {
+        burst.remove();
+      }, 700);
+    });
+
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @keyframes clickExplosion {
+        0% {
+          width: 20px;
+          height: 20px;
+          opacity: 1;
+        }
+        100% {
+          width: 260px;
+          height: 260px;
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const title = document.querySelector(".title");
+
+    setInterval(() => {
+      title.style.filter = `
+        drop-shadow(0 0 25px rgba(255,255,255,.7))
+        hue-rotate(${Math.floor(Math.random() * 360)}deg)
+      `;
+    }, 500);
+  </script>
+</body>
+</html>
